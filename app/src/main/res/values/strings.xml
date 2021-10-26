@@ -18,4 +18,10 @@
     <string name="camera_string">\t\t拍照</string>
     <string name="album_string">\t\t从相册中选择照片\t</string>
     <string name="cancel_string">\t\t取消</string>
+    <string name="string_friend">联系人</string>
+    <string name="string_message">消息</string>
+    <string name="string_information">个人信息</string>
+    <string name="string_init_face">录入人脸</string>
+    <string name="string_delete_face">删除人脸</string>
+    <string name="string_setting">设置</string>
 </resources>

@@ -6,7 +6,7 @@
         <item
             android:id="@+id/action_personal_info"
             android:icon="@drawable/ic_vector_information"
-            android:title="个人信息" />
+            android:title="@string/string_information" />
     </group>
 
     <group
@@ -14,7 +14,7 @@
         <item
             android:id="@+id/action_personal_face"
             android:icon="@drawable/ic_vector_face"
-            android:title="录入人脸" />
+            android:title="@string/string_init_face" />
     </group>
 
     <group
@@ -22,23 +22,15 @@
         <item
             android:id="@+id/action_personal_delete"
             android:icon="@drawable/ic_vector_delete"
-            android:title="删除人脸" />
+            android:title="@string/string_delete_face" />
     </group>
 
     <group
         android:id="@+id/group4">
         <item
-            android:id="@+id/action_personal_data"
-            android:icon="@drawable/ic_vector_data"
-            android:title="出行数据" />
-    </group>
-
-    <group
-        android:id="@+id/group5">
-        <item
             android:id="@+id/action_personal_setting"
             android:icon="@drawable/ic_vector_settings"
-            android:title="设置" />
+            android:title="@string/string_setting" />
     </group>
 
 </menu>

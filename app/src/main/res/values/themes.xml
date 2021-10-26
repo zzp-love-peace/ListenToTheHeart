@@ -14,10 +14,6 @@
         <!-- Customize your theme here. -->
         <!-- Enable animations -->
         <item name="android:windowActivityTransitions">true</item>
-        <item name="android:windowSharedElementEnterTransition">
-            @transition/change_transform</item>
-        <item name="android:windowSharedElementExitTransition">
-            @transition/change_transform</item>     
     </style>
 
     <style name="TabLayoutTextStyle">

@@ -1,20 +1,16 @@
 package com.zzp.dtrip.activity
 
 import android.Manifest
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.Matrix
 import android.os.Build
 import android.os.Bundle
-import android.util.Base64
 import android.util.Log
 import android.view.View
 import android.widget.CheckBox
-import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -84,6 +80,9 @@ class LoginActivity : AppCompatActivity() {
         override fun onFailure(errorCode: Int) {
             //检测未完成，如相机异常CAMERA_ERROR,添加失败的处理逻辑。
             showUserWrong("检测失败 errorCode = $errorCode", this@LoginActivity)
+            if (spinnerLoading.visibility == View.VISIBLE) {
+                spinnerLoading.visibility = View.GONE
+            }
         }
     }
 
@@ -224,7 +223,8 @@ class LoginActivity : AppCompatActivity() {
         sendBroadcast(intent)
         Toast.makeText(this, "登录成功",
             Toast.LENGTH_SHORT).show()
-        onBackPressed()
+        startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun compareFace(image :Bitmap) {

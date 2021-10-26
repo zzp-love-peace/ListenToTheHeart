@@ -5,11 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.textfield.TextInputLayout
 import com.zzp.dtrip.R
 import com.zzp.dtrip.body.PasswordBody
-import com.zzp.dtrip.body.SexBody
 import com.zzp.dtrip.data.NormalResult
 import com.zzp.dtrip.util.AppService
 import com.zzp.dtrip.util.RetrofitManager

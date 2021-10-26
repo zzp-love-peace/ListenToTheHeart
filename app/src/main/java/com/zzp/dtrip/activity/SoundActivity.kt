@@ -3,7 +3,6 @@ package com.zzp.dtrip.activity
 import android.Manifest
 import android.content.*
 import android.content.pm.PackageManager
-import android.graphics.BlendMode
 import android.os.Build
 import android.os.Bundle
 import android.os.IBinder

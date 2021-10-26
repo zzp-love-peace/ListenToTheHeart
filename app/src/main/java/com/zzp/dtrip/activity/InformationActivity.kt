@@ -1,7 +1,6 @@
 package com.zzp.dtrip.activity
 
 import android.app.Activity
-import android.content.ContentProvider
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -33,7 +32,6 @@ import com.zzp.dtrip.util.AppService
 import com.zzp.dtrip.util.RetrofitManager
 import com.zzp.dtrip.util.UserInformation
 import de.hdodenhof.circleimageview.CircleImageView
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

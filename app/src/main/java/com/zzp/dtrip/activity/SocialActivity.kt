@@ -39,7 +39,7 @@ class SocialActivity : AppCompatActivity() {
         setContentView(R.layout.activity_social)
 
         floatButton = findViewById(R.id.floating_Button)
-        msgRecycler = findViewById(R.id.message_recycler)
+        msgRecycler = findViewById(R.id.chat_recycler)
 
         initRecyclerView()
         // 通过intent进行识别设置。

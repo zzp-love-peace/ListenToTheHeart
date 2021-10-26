@@ -1,7 +1,6 @@
 package com.zzp.dtrip.fragment
 
 import android.Manifest
-import android.app.Activity
 import android.content.*
 import android.content.pm.PackageManager
 import android.content.res.ColorStateList
@@ -12,8 +11,6 @@ import android.media.ExifInterface
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.provider.MediaStore
-import android.util.Base64
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -29,12 +26,15 @@ import com.google.android.material.snackbar.Snackbar
 import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCapture
 import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCaptureResult
 import com.zzp.dtrip.R
-import com.zzp.dtrip.activity.*
 import com.zzp.dtrip.body.DeleteFaceBody
 import com.zzp.dtrip.body.FaceBody
 import com.zzp.dtrip.data.FaceResult
 import com.zzp.dtrip.util.*
 import com.zzp.dtrip.data.NormalResult
+import com.zzp.dtrip.activity.InformationActivity
+import com.zzp.dtrip.activity.LiveHandGestureAnalyseActivity
+import com.zzp.dtrip.activity.LoginActivity
+import com.zzp.dtrip.activity.SettingsActivity
 import com.zzp.dtrip.util.AppService
 import com.zzp.dtrip.util.RetrofitManager
 import com.zzp.dtrip.util.UserInformation
@@ -135,16 +135,6 @@ class MineFragment : Fragment() {
                 R.id.action_personal_delete -> {
                     if (UserInformation.isLogin) {
                         deleteFaceData()
-                    }
-                    else {
-                        val intent = Intent(requireContext(), LoginActivity::class.java)
-                        startActivity(intent)
-                    }
-                }
-                R.id.action_personal_data -> {
-                    if (UserInformation.isLogin) {
-                        val intent = Intent(requireContext(), TripDataActivity::class.java)
-                        startActivity(intent)
                     }
                     else {
                         val intent = Intent(requireContext(), LoginActivity::class.java)
