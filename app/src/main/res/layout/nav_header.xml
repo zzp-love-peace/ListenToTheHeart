@@ -5,7 +5,7 @@
     android:id="@+id/person_image"
     android:layout_width="match_parent"
     android:layout_height="160dp"
-    android:background="@color/white"
+    android:background="@drawable/bg_4"
     android:padding="10dp"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,10 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="5dp"
+        android:layout_below="@+id/head_image"
+        android:layout_alignBottom="@+id/head_image"
         tools:text="zzp"
+        android:textColor="@color/white"
         android:textSize="20sp" />
 
 </RelativeLayout>
