@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">d伴行</string>
+    <string name="app_name">心听</string>
     <string name="title_trip">出行</string>
     <string name="title_mine">我的</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -24,4 +24,6 @@
     <string name="string_init_face">录入人脸</string>
     <string name="string_delete_face">删除人脸</string>
     <string name="string_setting">设置</string>
+    <string name="string_gesture_analyze">手势识别</string>
+    <string name="string_speak_gesture">语音转手势</string>
 </resources>

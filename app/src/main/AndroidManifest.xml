@@ -59,7 +59,8 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" />
-
+        <activity android:name=".activity.GestureShowActivity"
+            android:screenOrientation="portrait"/>
         <service
             android:name=".service.SoundService"
             android:enabled="true"

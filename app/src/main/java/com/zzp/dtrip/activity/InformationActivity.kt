@@ -41,7 +41,6 @@ import java.io.File
 class InformationActivity : AppCompatActivity() {
 
     private val sexList = arrayListOf("男", "女")
-
     private lateinit var sexLayout: ConstraintLayout
     private lateinit var headLayout: ConstraintLayout
     private lateinit var usernameEdit: TextInputEditText

@@ -11,7 +11,7 @@ import com.zzp.dtrip.util.TtsUtil;
 
 import java.util.List;
 /**
- * 手势识别所使用的View,不需要改动
+ * 手势识别所使用的View,不需要改动，已经使得该功能能够不重复说出手势
  */
 
 public class HandGestureGraphic extends GraphicOverlay.Graphic {
@@ -23,6 +23,7 @@ public class HandGestureGraphic extends GraphicOverlay.Graphic {
     private Paint linePaint;
     private Paint rectPaint;
     private final Rect rect;
+    private static String record = "没有";
 
     public HandGestureGraphic(GraphicOverlay overlay, List<MLGesture> results) {
         super(overlay);
@@ -86,59 +87,73 @@ public class HandGestureGraphic extends GraphicOverlay.Graphic {
         switch (gestureCategory) {
             case MLGesture.ONE:
                 chineseDescription = "数字1";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.SECOND:
                 chineseDescription = "数字2";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.THREE:
                 chineseDescription = "数字3";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.FOUR:
                 chineseDescription = "数字4";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.FIVE:
                 chineseDescription = "数字5";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.SIX:
                 chineseDescription = "数字6";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.SEVEN:
                 chineseDescription = "数字7";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.EIGHT:
                 chineseDescription = "数字8";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.NINE:
                 chineseDescription = "数字9";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.DISS:
                 chineseDescription = "差评";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.FIST:
                 chineseDescription = "握拳";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.GOOD:
                 chineseDescription = "点赞";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.HEART:
                 chineseDescription = "单手比心";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             case MLGesture.OK:
                 chineseDescription = "确认";
-                TtsUtil.INSTANCE.playString(chineseDescription);
+                play(chineseDescription);
+                record = chineseDescription;
                 break;
             default:
                 chineseDescription = "其他手势";
@@ -165,17 +180,15 @@ public class HandGestureGraphic extends GraphicOverlay.Graphic {
         }
         return new Rect((int) left, (int) top, (int) right, (int) bottom);
     }
+
     public void play(String chineseDescription){
-        new Thread(new Runnable(){
-            @Override
-            public void run() {
-                TtsUtil.INSTANCE.playString(chineseDescription);
+        if(!record.equals(chineseDescription)) {
+            new Thread(() -> TtsUtil.INSTANCE.playString(chineseDescription)).start();
+            try {
+                Thread.sleep(1000); //设置手势识别采样间隔（语音播报时间间隔）
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-        }).start();
-        try {
-            Thread.sleep(1000); //设置手势识别采样间隔（语音播报时间间隔）
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
     }
 }
