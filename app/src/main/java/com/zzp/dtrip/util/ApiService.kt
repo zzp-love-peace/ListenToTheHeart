@@ -1,13 +1,10 @@
 package com.zzp.dtrip.util
 
-import com.zzp.dtrip.body.*
-import com.zzp.dtrip.data.FaceResult
-import com.zzp.dtrip.data.LoginResult
-import com.zzp.dtrip.data.NormalResult
+import com.zzp.dtrip.data.*
 import retrofit2.Call
 import retrofit2.http.*
 
-interface AppService {
+interface ApiService {
     @POST("/user/login")
     fun postLogin(@Body loginBody: LoginBody) : Call<LoginResult>
 
@@ -34,4 +31,13 @@ interface AppService {
 
     @POST("/face/deleteFace")
     fun deleteFace(@Body deleteFaceBody: DeleteFaceBody) : Call<NormalResult>
+
+    @POST("/friend/friendList")
+    fun getFriends(@Body getFriendsBody: GetFriendsBody) : Call<GetFriendsResult>
+
+    @POST("user/selectId")
+    fun selectId(@Body selectIdBody: SelectIdBody) : Call<SelectIdResult>
+
+    @POST("friend/isFriend")
+    fun isFriend(@Body isFriendBody: IsFriendBody) : Call<IsFriendResult>
 }

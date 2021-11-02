@@ -7,8 +7,8 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -22,8 +22,8 @@ import com.huawei.hms.mlsdk.common.MLApplication
 import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCapture
 import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCaptureResult
 import com.zzp.dtrip.R
-import com.zzp.dtrip.body.DeleteFaceBody
-import com.zzp.dtrip.body.FaceBody
+import com.zzp.dtrip.data.DeleteFaceBody
+import com.zzp.dtrip.data.FaceBody
 import com.zzp.dtrip.data.FaceResult
 import com.zzp.dtrip.data.NormalResult
 import com.zzp.dtrip.fragment.ChatFragment
@@ -71,6 +71,11 @@ class MainActivity : AppCompatActivity() {
             //检测未完成，如相机异常CAMERA_ERROR,添加失败的处理逻辑。
             showUserWrong("检测失败 errorCode = $errorCode", this@MainActivity)
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -136,6 +141,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> drawerLayout.openDrawer(GravityCompat.START)
+            R.id.add_friend -> {
+                val intent = Intent(this, AddFriendActivity::class.java)
+                startActivity(intent)
+            }
+            R.id.add_group -> "加群".showToast()
+        }
+        return true
+    }
+
     private fun findViewById() {
         toolbar = findViewById(R.id.tool_bar)
         drawerLayout = findViewById(R.id.drawer_layout)
@@ -143,12 +160,6 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottom_nav_view)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> drawerLayout.openDrawer(GravityCompat.START)
-        }
-        return true
-    }
 
     private fun checkPermission() {
         if (Build.VERSION.SDK_INT >= 23 && !isPermissionRequested) {
@@ -166,7 +177,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun postFaceData(image: Bitmap) {
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.postFaceData(FaceBody(bitmap2Base64(compressImage(image)), UserInformation.ID))
         task.enqueue(object : Callback<FaceResult> {
             override fun onResponse(call: Call<FaceResult>,
@@ -196,7 +207,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun deleteFaceData() {
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.deleteFace(DeleteFaceBody(UserInformation.ID))
         task.enqueue(object : Callback<NormalResult> {
             override fun onResponse(call: Call<NormalResult>, response: Response<NormalResult>) {

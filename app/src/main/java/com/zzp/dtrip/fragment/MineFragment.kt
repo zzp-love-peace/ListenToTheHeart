@@ -26,8 +26,8 @@ import com.google.android.material.snackbar.Snackbar
 import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCapture
 import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCaptureResult
 import com.zzp.dtrip.R
-import com.zzp.dtrip.body.DeleteFaceBody
-import com.zzp.dtrip.body.FaceBody
+import com.zzp.dtrip.data.DeleteFaceBody
+import com.zzp.dtrip.data.FaceBody
 import com.zzp.dtrip.data.FaceResult
 import com.zzp.dtrip.util.*
 import com.zzp.dtrip.data.NormalResult
@@ -35,7 +35,7 @@ import com.zzp.dtrip.activity.InformationActivity
 import com.zzp.dtrip.activity.LiveHandGestureAnalyseActivity
 import com.zzp.dtrip.activity.LoginActivity
 import com.zzp.dtrip.activity.SettingsActivity
-import com.zzp.dtrip.util.AppService
+import com.zzp.dtrip.util.ApiService
 import com.zzp.dtrip.util.RetrofitManager
 import com.zzp.dtrip.util.UserInformation
 import de.hdodenhof.circleimageview.CircleImageView
@@ -263,7 +263,7 @@ class MineFragment : Fragment() {
     }
 
     private fun postFaceData(image: Bitmap) {
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.postFaceData(FaceBody(bitmap2Base64(compressImage(image)), UserInformation.ID))
         task.enqueue(object : Callback<FaceResult> {
             override fun onResponse(call: Call<FaceResult>,
@@ -307,7 +307,7 @@ class MineFragment : Fragment() {
     }
 
     private fun deleteFaceData() {
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.deleteFace(DeleteFaceBody(UserInformation.ID))
         task.enqueue(object : Callback<NormalResult> {
             override fun onResponse(call: Call<NormalResult>, response: Response<NormalResult>) {

@@ -80,7 +80,7 @@ object TtsUtil {
      */
 
 
-    public fun playString(string: String) {
+    fun playString(string: String) {
         Thread {
             try {
                 text = string

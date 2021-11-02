@@ -9,9 +9,9 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.radiobutton.MaterialRadioButton
 import com.google.android.material.textfield.TextInputLayout
 import com.zzp.dtrip.R
-import com.zzp.dtrip.body.RegisterBody
+import com.zzp.dtrip.data.RegisterBody
 import com.zzp.dtrip.data.NormalResult
-import com.zzp.dtrip.util.AppService
+import com.zzp.dtrip.util.ApiService
 import com.zzp.dtrip.util.RetrofitManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -81,7 +81,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun postRegister() {
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val sexNum = if (sex == "男") 0 else 1
         val task = appService.postRegister(RegisterBody(username, password, sexNum.toString()))
         task.enqueue(object : Callback<NormalResult>{

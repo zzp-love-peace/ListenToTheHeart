@@ -21,8 +21,8 @@ import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCapture
 import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCaptureResult
 import com.lusfold.spinnerloading.SpinnerLoading
 import com.zzp.dtrip.R
-import com.zzp.dtrip.body.CmpFaceBody
-import com.zzp.dtrip.body.LoginBody
+import com.zzp.dtrip.data.CmpFaceBody
+import com.zzp.dtrip.data.LoginBody
 import com.zzp.dtrip.data.LoginResult
 import com.zzp.dtrip.data.User
 import com.zzp.dtrip.util.*
@@ -160,7 +160,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun postLogin() {
         Log.d(TAG, "postLogin: ")
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.postLogin(LoginBody(username, password))
         task.enqueue(object : Callback<LoginResult>{
             override fun onResponse(call: Call<LoginResult>,
@@ -228,7 +228,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun compareFace(image :Bitmap) {
-        val appService= RetrofitManager.create<AppService>()
+        val appService= RetrofitManager.create<ApiService>()
         val task = appService.compareFace(CmpFaceBody(bitmap2Base64(compressImage(image))))
         task.enqueue(object : Callback<LoginResult> {
             override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {

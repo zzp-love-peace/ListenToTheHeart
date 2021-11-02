@@ -25,10 +25,10 @@ import com.cocosw.bottomsheet.BottomSheet
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.zzp.dtrip.R
-import com.zzp.dtrip.body.SexBody
-import com.zzp.dtrip.body.UsernameBody
+import com.zzp.dtrip.data.SexBody
+import com.zzp.dtrip.data.UsernameBody
 import com.zzp.dtrip.data.NormalResult
-import com.zzp.dtrip.util.AppService
+import com.zzp.dtrip.util.ApiService
 import com.zzp.dtrip.util.RetrofitManager
 import com.zzp.dtrip.util.UserInformation
 import de.hdodenhof.circleimageview.CircleImageView
@@ -246,7 +246,7 @@ class InformationActivity : AppCompatActivity() {
     }
 
     private fun postUsername() {
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.postUsername(
             UsernameBody(UserInformation.username,
             UserInformation.password, username)
@@ -281,7 +281,7 @@ class InformationActivity : AppCompatActivity() {
     }
 
     private fun postSex() {
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.postSex(
             SexBody(UserInformation.username,
                     UserInformation.password, sex)

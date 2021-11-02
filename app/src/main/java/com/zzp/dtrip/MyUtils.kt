@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.util.Base64
 import android.widget.Toast
+import com.zzp.dtrip.application.MyApplication
 import java.io.ByteArrayOutputStream
 
 //图片压缩
@@ -34,3 +35,5 @@ fun bitmap2Base64(image: Bitmap): String{
 fun showUserWrong(s: String, context: Context) {
     Toast.makeText(context, s, Toast.LENGTH_SHORT).show()
 }
+
+fun String.showToast() { Toast.makeText(MyApplication.context, this, Toast.LENGTH_SHORT).show() }
