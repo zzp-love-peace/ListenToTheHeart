@@ -26,6 +26,20 @@
     </group>
 
     <group
+        android:id="@+id/group5">
+        <item
+            android:id="@+id/action_gesture_analyze"
+            android:icon="@drawable/ic_vector_gesture"
+            android:title="@string/string_gesture_analyze"/>
+    </group>
+    <group
+        android:id="@+id/gruop6">
+        <item
+            android:id="@+id/action_speak_gesture"
+            android:icon="@drawable/ic_speak"
+            android:title="@string/string_speak_gesture"/>
+    </group>
+    <group
         android:id="@+id/group4">
         <item
             android:id="@+id/action_personal_setting"

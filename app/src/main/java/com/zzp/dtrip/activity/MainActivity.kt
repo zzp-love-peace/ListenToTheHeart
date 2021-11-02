@@ -135,6 +135,14 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this, SettingsActivity::class.java)
                     startActivity(intent)
                 }
+                R.id.action_gesture_analyze->{
+                    val intent = Intent(this,LiveHandGestureAnalyseActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.action_speak_gesture->{
+                    val intent = Intent(this,GestureShowActivity::class.java)
+                    startActivity(intent)
+                }
             }
             drawerLayout.closeDrawers()
             false
