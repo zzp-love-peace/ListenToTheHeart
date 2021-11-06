@@ -13,12 +13,15 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
+import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.FileProvider
 import androidx.core.net.toUri
+import androidx.core.view.GravityCompat
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder
 import com.bigkoo.pickerview.view.OptionsPickerView
 import com.cocosw.bottomsheet.BottomSheet
@@ -31,6 +34,7 @@ import com.zzp.dtrip.data.NormalResult
 import com.zzp.dtrip.util.ApiService
 import com.zzp.dtrip.util.RetrofitManager
 import com.zzp.dtrip.util.UserInformation
+import com.zzp.dtrip.util.showToast
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Call
 import retrofit2.Callback
@@ -48,6 +52,7 @@ class InformationActivity : AppCompatActivity() {
     private lateinit var idText: TextView
     private lateinit var circleImage: CircleImageView
     private lateinit var changeButton: MaterialButton
+    private lateinit var toolbar: Toolbar
 
     private var imageUri: Uri? = null
     private lateinit var headImage: File
@@ -74,7 +79,8 @@ class InformationActivity : AppCompatActivity() {
         initImageUri()
         initHeadImage()
         initpvOptions()
-
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         sexLayout.setOnClickListener { pvOptions.show() }
 
         headLayout.setOnClickListener {
@@ -118,6 +124,7 @@ class InformationActivity : AppCompatActivity() {
         idText = findViewById(R.id.id_text)
         circleImage = findViewById(R.id.circle_image)
         changeButton = findViewById(R.id.change_button)
+        toolbar = findViewById(R.id.info_toolbar)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -241,7 +248,7 @@ class InformationActivity : AppCompatActivity() {
         Log.d(TAG, "initData: ${UserInformation.sex}")
         sexText.text = UserInformation.sex
         usernameEdit.setText(UserInformation.username)
-        idText.text = UserInformation.ID.toString()
+        idText.text = UserInformation.id.toString()
     }
 
     private fun postUsername() {
@@ -305,5 +312,12 @@ class InformationActivity : AppCompatActivity() {
                 Log.d(TAG, "onFailure: $t")
             }
         })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> finish()
+        }
+        return true
     }
 }

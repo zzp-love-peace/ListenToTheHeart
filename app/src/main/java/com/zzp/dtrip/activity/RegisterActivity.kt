@@ -13,6 +13,7 @@ import com.zzp.dtrip.data.RegisterBody
 import com.zzp.dtrip.data.NormalResult
 import com.zzp.dtrip.util.ApiService
 import com.zzp.dtrip.util.RetrofitManager
+import com.zzp.dtrip.util.setFocus
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -109,15 +110,9 @@ class RegisterActivity : AppCompatActivity() {
 
 
     private fun setFocus() {
-        usernameLayout.editText?.setOnFocusChangeListener { v, hasFocus ->
-            usernameLayout.error = ""
-        }
-        passwordLayout.editText?.setOnFocusChangeListener { v, hasFocus ->
-            passwordLayout.error = ""
-        }
-        passwordAgainLayout.editText?.setOnFocusChangeListener { v, hasFocus ->
-            passwordAgainLayout.error = ""
-        }
+        usernameLayout.setFocus()
+        passwordLayout.setFocus()
+        passwordAgainLayout.setFocus()
     }
 
     private fun isNotEmpty() : Boolean {

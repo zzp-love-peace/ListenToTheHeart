@@ -33,11 +33,29 @@ interface ApiService {
     fun deleteFace(@Body deleteFaceBody: DeleteFaceBody) : Call<NormalResult>
 
     @POST("/friend/friendList")
-    fun getFriends(@Body getFriendsBody: GetFriendsBody) : Call<GetFriendsResult>
+    fun getFriendList(@Body idBody: IdBody) : Call<GetFriendsResult>
 
     @POST("user/selectId")
-    fun selectId(@Body selectIdBody: SelectIdBody) : Call<SelectIdResult>
+    fun searchIdFromUsername(@Body selectIdBody: SelectIdBody) : Call<SelectIdResult>
+
+    @POST("friend/selectFriend")
+    fun searchFriendFromId(@Body idBody: IdBody) : Call<SelectFriendResult>
 
     @POST("friend/isFriend")
-    fun isFriend(@Body isFriendBody: IsFriendBody) : Call<IsFriendResult>
+    fun isFriend(@Body isFriendBody: FriendToFriendBody) : Call<IsFriendResult>
+
+    @POST("friend/requestList")
+    fun getRequestList(@Body getFriendBody: IdBody) : Call<GetFriendsResult>
+
+    @POST("friend/request")
+    fun addFriend(@Body addFriendBody: FriendToFriendBody) : Call<NormalResult>
+
+    @POST("friend/agree")
+    fun agreeRequest(@Body agreeRequestBody: FriendToFriendBody) : Call<NormalResult>
+
+    @POST("friend/reject")
+    fun rejectRequest(@Body rejectRequestBody: FriendToFriendBody) : Call<NormalResult>
+
+    @POST("friend/delete")
+    fun deleteFriend(@Body deleteFriendBody: FriendToFriendBody) : Call<NormalResult>
 }

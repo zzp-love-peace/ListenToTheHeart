@@ -42,7 +42,21 @@ data class User(
 data class SelectIdResult(
     val errorCode: Int,
     val errorMsg: String,
-    val isError: Boolean
+    val isError: Boolean,
+    val list: List<String>
 )
 
-data class IsFriendResult(val isFriend: Boolean)
+data class IsFriendResult(
+    val errorCode: Int,
+    val errorMsg: String,
+    val isError: Boolean,
+    val message: Boolean
+)
+
+data class SelectFriendResult(
+    val errorCode: Int,
+    val errorMsg: String,
+    val isError: Boolean, val user: Friend
+)
+
+data class Friend(val id: Int, val username: String, val sex: String)

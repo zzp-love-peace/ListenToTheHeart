@@ -35,7 +35,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DTrip"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activity.AddFriendActivity"></activity>
+        <activity android:name=".activity.FriendInfoActivity"></activity>
+        <activity android:name=".activity.NewFriendActivity" />
+        <activity
+            android:name=".activity.AddFriendActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activity.SettingsActivity"
             android:exported="true"
@@ -61,8 +65,10 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".activity.GestureShowActivity"
-            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".activity.GestureShowActivity"
+            android:screenOrientation="portrait" />
+
         <service
             android:name=".service.SoundService"
             android:enabled="true"

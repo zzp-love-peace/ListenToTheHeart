@@ -10,21 +10,20 @@
     </group>
 
     <group
-        android:id="@+id/group2">
+        android:id="@+id/group7">
         <item
-            android:id="@+id/action_personal_face"
-            android:icon="@drawable/ic_vector_face"
-            android:title="@string/string_init_face" />
+            android:id="@+id/action_sound_alarm"
+            android:icon="@drawable/ic_vector_hearing"
+            android:title="@string/string_sound_alarm"/>
     </group>
 
     <group
-        android:id="@+id/group3">
+        android:id="@+id/group8">
         <item
-            android:id="@+id/action_personal_delete"
-            android:icon="@drawable/ic_vector_delete"
-            android:title="@string/string_delete_face" />
+            android:id="@+id/action_eyes_saying"
+            android:icon="@drawable/ic_vector_saying"
+            android:title="@string/string_eyes_saying"/>
     </group>
-
     <group
         android:id="@+id/group5">
         <item
@@ -33,7 +32,7 @@
             android:title="@string/string_gesture_analyze"/>
     </group>
     <group
-        android:id="@+id/gruop6">
+        android:id="@+id/group6">
         <item
             android:id="@+id/action_speak_gesture"
             android:icon="@drawable/ic_speak"

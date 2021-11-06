@@ -18,8 +18,9 @@ data class SexBody(val username: String, val password: String,
 
 data class UsernameBody(val username: String, val password: String,
                         val new_Usn: String)
-data class GetFriendsBody(val toId: Int)
+
+data class IdBody(val toId: Int)
 
 data class SelectIdBody(val username: String)
 
-data class IsFriendBody(val fromId: Int, val toId: Int)
+data class FriendToFriendBody(val fromId: Int, val toId: Int)
