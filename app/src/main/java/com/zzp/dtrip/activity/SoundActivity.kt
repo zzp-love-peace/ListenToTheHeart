@@ -215,6 +215,5 @@ class SoundActivity : AppCompatActivity() {
             }
             notifyText.text = SoundService.text
         }
-
     }
 }

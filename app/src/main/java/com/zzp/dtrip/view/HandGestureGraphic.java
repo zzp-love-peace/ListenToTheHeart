@@ -3,8 +3,11 @@ package com.zzp.dtrip.view;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.Shader;
 
 import com.huawei.hms.mlsdk.gesture.MLGesture;
 import com.zzp.dtrip.util.TtsUtil;
@@ -17,23 +20,31 @@ import java.util.List;
 public class HandGestureGraphic extends GraphicOverlay.Graphic {
 
     private final List<MLGesture> results;
+//    private final List<MyMLGesture> myResults;
 
     private Paint circlePaint;
     private Paint textPaint;
     private Paint linePaint;
     private Paint rectPaint;
     private final Rect rect;
+//    private RectF rectF;//绘制圆角矩阵
     private static String record = "没有";
 
+    /**
+     * 修改线条属性
+     * @param overlay
+     * @param results
+     */
     public HandGestureGraphic(GraphicOverlay overlay, List<MLGesture> results) {
         super(overlay);
-
         this.results = results;
 
         circlePaint = new Paint();
         circlePaint.setColor(Color.RED);
         circlePaint.setStyle(Paint.Style.FILL);
+//        circlePaint.setStrokeCap(Paint.Cap.ROUND);
         circlePaint.setAntiAlias(true);
+
 
         textPaint = new Paint();
         textPaint.setColor(Color.YELLOW);
@@ -48,14 +59,62 @@ public class HandGestureGraphic extends GraphicOverlay.Graphic {
         linePaint.setAntiAlias(true);
 
         rectPaint = new Paint();
-        rectPaint.setColor(Color.BLUE);
+//        rectPaint.setColor(Color.BLUE);
         rectPaint.setStyle(Paint.Style.STROKE);
-        rectPaint.setStrokeWidth(5f);
+        rectPaint.setStrokeWidth(50f);
+//        rectPaint.setStrokeCap(Paint.Cap.ROUND);
+        rectPaint.setStrokeJoin(Paint.Join.ROUND);
+        LinearGradient linearGradient = new LinearGradient(100,100,200,100,Color.WHITE,Color.GRAY, Shader.TileMode.MIRROR);//设置渐变渐变区域属性
+        rectPaint.setShader(linearGradient);//设置线性渐变
         rectPaint.setAntiAlias(true);
 
         rect = new Rect();
-
     }
+
+
+//
+//        public HandGestureGraphic(GraphicOverlay overlay, List<MyMLGesture> myResults) {
+//        super(overlay);
+//        this.myResults = myResults;
+//
+//        circlePaint = new Paint();
+//        circlePaint.setColor(Color.RED);
+////        circlePaint.setStyle(Paint.Style.FILL);
+//        circlePaint.setAntiAlias(true);
+//
+//        circlePaint.setStyle(Paint.Style.STROKE);//尝试
+//        circlePaint.setStrokeWidth(5f);
+//
+//        textPaint = new Paint();
+//        textPaint.setColor(Color.YELLOW);
+//        textPaint.setStyle(Paint.Style.FILL);
+//        textPaint.setStrokeWidth(5f);
+//        textPaint.setTextSize(100);
+//
+//        linePaint = new Paint();
+//        linePaint.setColor(Color.GREEN);
+//        linePaint.setStyle(Paint.Style.STROKE);
+//        linePaint.setStrokeWidth(4f);
+//        linePaint.setAntiAlias(true);
+//
+//        rectPaint = new Paint();
+//        rectPaint.setColor(Color.BLUE);
+//        rectPaint.setStyle(Paint.Style.STROKE);
+//        rectPaint.setStrokeWidth(5f);
+//        rectPaint.setAntiAlias(true);
+//
+////        rect = new Rect();
+//
+//        rectF = new RectF();//自定义圆角矩形
+////        rectF.left = 50;
+////        rectF.right = 250;
+////        rectF.top = 200;
+////        rectF.bottom = 300;
+//    }
+
+
+
+
 
     @Override
     public void draw(Canvas canvas) {
@@ -63,23 +122,49 @@ public class HandGestureGraphic extends GraphicOverlay.Graphic {
             MLGesture mlGesture = results.get(i);
 
             canvas.drawRect(rect, rectPaint);
-
             Rect rect = translateRect(mlGesture.getRect());
             if (rect.right < rect.left) {
                 int x = rect.left;
                 rect.left = rect.right;
                 rect.right = x;
             }
-            canvas.drawRect(rect, linePaint);
+
+//            LinearGradient linearGradient = new LinearGradient(100,100,200,100,Color.WHITE,Color.GRAY,Shader.TileMode.CLAMP);
+//            rectPaint.setShader(linearGradient);
+            canvas.drawRect(rect, rectPaint);
             // 注意。如果绘制时坐标点需要与原图一一对应，需要使用translateX和translateY进项坐标转换
             canvas.drawText(getChineseDescription(mlGesture.getCategory()),
-                    translateX((mlGesture.getRect().left + mlGesture.getRect().right) / 2f),
+                    translateX((mlGesture.getRect().left + mlGesture.getRect().right) / 2f),//无法更改现有图形
                     translateY((mlGesture.getRect().top + mlGesture.getRect().bottom) / 2f),
                     textPaint);
 
         }
-
     }
+
+//
+//    @Override
+//    public void draw(Canvas canvas) {
+//        for (int i = 0; i < myResults.size(); i++) {
+//            MyMLGesture myMLGesture = myResults.get(i);
+//
+//            canvas.drawRoundRect(rectF,10,10, rectPaint);
+////            canvas.drawRect(rect, circlePaint);尝试
+////            canvas.drawRect(rectF,rectPaint);
+//            RectF rectF = translateRectF(myMLGesture.getRectF());
+//            if (rectF.right < rectF.left) {
+//                float x = rectF.left;
+//                rectF.left = rectF.right;
+//                rectF.right = x;
+//            }
+//            canvas.drawRoundRect(rectF,10,10, rectPaint);
+//            // 注意。如果绘制时坐标点需要与原图一一对应，需要使用translateX和translateY进项坐标转换
+//            canvas.drawText(getChineseDescription(myMLGesture.getCategory()),
+//                    translateX((myMLGesture.getRectF().left + myMLGesture.getRectF().right) / 2f),//无法更改现有图形
+//                    translateY((myMLGesture.getRectF().top + myMLGesture.getRectF().bottom) / 2f),
+//                    textPaint);
+//        }
+//
+//    }
 
 
     private String getChineseDescription(int gestureCategory) {
@@ -181,6 +266,31 @@ public class HandGestureGraphic extends GraphicOverlay.Graphic {
         return new Rect((int) left, (int) top, (int) right, (int) bottom);
     }
 
+//
+//    /**
+//     * 改变矩阵图形
+//     * @param rectF
+//     * @return
+//     */
+//    public RectF translateRectF(RectF rectF) {
+//        float left = translateX(rectF.left);
+//        float right = translateX(rectF.right);
+//        float bottom = translateY(rectF.bottom);
+//        float top = translateY(rectF.top);
+//        if (left > right) {
+//            float size = left;
+//            left = right;
+//            right = size;
+//        }
+//        if (bottom < top) {
+//            float size = bottom;
+//            bottom = top;
+//            top = size;
+//        }
+//        return new RectF((int) left, (int) top, (int) right, (int) bottom);
+//    }
+
+
     public void play(String chineseDescription){
         if(!record.equals(chineseDescription)) {
             new Thread(() -> TtsUtil.INSTANCE.playString(chineseDescription)).start();
@@ -191,4 +301,5 @@ public class HandGestureGraphic extends GraphicOverlay.Graphic {
             }
         }
     }
+
 }

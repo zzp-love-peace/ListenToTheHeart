@@ -27,11 +27,10 @@ public class GraphicOverlay extends View {
     private int mFacing = LensEngine.BACK_LENS;
 
     private Set<Graphic> mGraphics = new HashSet<>();
-
     /**
-     * Base class for a custom graphics object to be rendered within the graphic overlay. Subclass
-     * this and implement the {@link Graphic#draw(Canvas)} method to define the
-     * graphics element. Add instances to the overlay using {@link GraphicOverlay#add(Graphic)}.
+     * 要在图形叠加层中呈现的自定义图形对象的基类。 子类
+     * 并实现 {@link Graphic#draw(Canvas)} 方法来定义
+     * 图形元素。 使用 {@link GraphicOverlay#add(Graphic)} 将实例添加到叠加层。
      */
     public abstract static class Graphic {
         private GraphicOverlay mOverlay;
@@ -41,22 +40,22 @@ public class GraphicOverlay extends View {
         }
 
         /**
-         * Draw the graphic on the supplied canvas. Drawing should use the following methods to
-         * convert to view coordinates for the graphics that are drawn:
+         * 在提供的画布上绘制图形。 绘图应使用以下方法
+         * 转换为绘制图形的视图坐标：
          * <ol>
-         * <li>{@link Graphic#scaleX(float)} and {@link Graphic#scaleY(float)} adjust the size of
-         * the supplied value from the preview scale to the view scale.</li>
-         * <li>{@link Graphic#translateX(float)} and {@link Graphic#translateY(float)} adjust the
-         * coordinate from the preview's coordinate system to the view coordinate system.</li>
+         * <li>{@link Graphic#scaleX(float)} 和 {@link Graphic#scaleY(float)} 调整大小
+         * 提供的从预览比例到视图比例的值。</li>
+         * <li>{@link Graphic#translateX(float)} 和 {@link Graphic#translateY(float)} 调整
+         * 从预览坐标系到视图坐标系的坐标。</li>
          * </ol>
          *
-         * @param canvas drawing canvas
+         * @param canvas 绘制画布
          */
         public abstract void draw(Canvas canvas);
 
         /**
-         * Adjusts a horizontal value of the supplied value from the preview scale to the view
-         * scale.
+         * 将所提供值的水平值从预览比例调整到视图
+         * 规模。
          */
         public float scaleX(float horizontal) {
             return horizontal * mOverlay.mWidthScaleFactor;
@@ -65,7 +64,7 @@ public class GraphicOverlay extends View {
             return horizontal / mOverlay.mWidthScaleFactor;
         }
         /**
-         * Adjusts a vertical value of the supplied value from the preview scale to the view scale.
+         * 将所提供值的垂直值从预览比例调整为视图比例。
          */
         public float scaleY(float vertical) {
             return vertical * mOverlay.mHeightScaleFactor;
@@ -74,8 +73,8 @@ public class GraphicOverlay extends View {
             return vertical / mOverlay.mHeightScaleFactor;
         }
         /**
-         * Adjusts the x coordinate from the preview's coordinate system to the view coordinate
-         * system.
+         * 调整 x 坐标从预览坐标系到视图坐标
+         * 系统。
          */
         public float translateX(float x) {
             if (mOverlay.mFacing == LensEngine.FRONT_LENS) {
@@ -86,8 +85,8 @@ public class GraphicOverlay extends View {
         }
 
         /**
-         * Adjusts the y coordinate from the preview's coordinate system to the view coordinate
-         * system.
+         * 将 y 坐标从预览坐标系调整为视图坐标
+         * 系统。
          */
         public float translateY(float y) {
             return scaleY(y);
@@ -101,9 +100,8 @@ public class GraphicOverlay extends View {
     public GraphicOverlay(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
-
-    /**
-     * Removes all graphics from the overlay.
+ /**
+     * 从叠加层中删除所有图形。
      */
     public void clear() {
         synchronized (mLock) {
@@ -113,7 +111,7 @@ public class GraphicOverlay extends View {
     }
 
     /**
-     * Adds a graphic to the overlay.
+     * 增加一个图形到叠加层
      */
     public void add(Graphic graphic) {
         synchronized (mLock) {
@@ -123,7 +121,7 @@ public class GraphicOverlay extends View {
     }
 
     /**
-     * Removes a graphic from the overlay.
+     * 从叠加层移除一个图形
      */
     public void remove(Graphic graphic) {
         synchronized (mLock) {
@@ -133,8 +131,8 @@ public class GraphicOverlay extends View {
     }
 
     /**
-     * Sets the camera attributes for size and facing direction, which informs how to transform
-     * image coordinates later.
+     * 设置相机属性的大小和朝向，告知如何变换
+     * 图像坐标稍后。
      */
     public void setCameraInfo(int previewWidth, int previewHeight, int facing) {
         synchronized (mLock) {
@@ -144,9 +142,8 @@ public class GraphicOverlay extends View {
         }
         postInvalidate();
     }
-
     /**
-     * Draws the overlay with its associated graphic objects.
+     * 使用其关联的图形对象绘制叠加层。
      */
     @Override
     protected void onDraw(Canvas canvas) {

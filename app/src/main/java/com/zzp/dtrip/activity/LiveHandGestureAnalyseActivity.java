@@ -193,7 +193,7 @@ public class LiveHandGestureAnalyseActivity extends AppCompatActivity implements
         public void transactResult(MLAnalyzer.Result<MLGesture> result) {
             this.mGraphicOverlay.clear();
 
-            SparseArray<MLGesture> handGestureSparseArray = result.getAnalyseList();
+            SparseArray<MLGesture> handGestureSparseArray = result.getAnalyseList();//取得分析器结果，此处无法被更改
             List<MLGesture> list = new ArrayList<>();
             for (int i = 0; i < handGestureSparseArray.size(); i++) {
                 list.add(handGestureSparseArray.valueAt(i));
