@@ -21,8 +21,8 @@ import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCapture
 import com.huawei.hms.mlsdk.livenessdetection.MLLivenessCaptureResult
 import com.lusfold.spinnerloading.SpinnerLoading
 import com.zzp.dtrip.R
-import com.zzp.dtrip.body.CmpFaceBody
-import com.zzp.dtrip.body.LoginBody
+import com.zzp.dtrip.data.CmpFaceBody
+import com.zzp.dtrip.data.LoginBody
 import com.zzp.dtrip.data.LoginResult
 import com.zzp.dtrip.data.User
 import com.zzp.dtrip.util.*
@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
         override fun onSuccess(result: MLLivenessCaptureResult) {
             //检测成功的处理逻辑，检测结果可能是活体或者非活体。
             if (!result.isLive) {
-                showUserWrong("未检测出人脸", this@LoginActivity)
+                "未检测出人脸".showToast()
                 if (spinnerLoading.visibility == View.VISIBLE) {
                     spinnerLoading.visibility = View.GONE
                 }
@@ -67,21 +67,27 @@ class LoginActivity : AppCompatActivity() {
                 "拍照获取人脸照片" + bitmapCurrent?.width.toString() + "   " + bitmapCurrent?.height
             )
             if (bitmapCurrent == null) {
-                showUserWrong("failed to get picture!",this@LoginActivity)
+                "failed to get picture!".showToast()
                 if (spinnerLoading.visibility == View.VISIBLE) {
                     spinnerLoading.visibility = View.GONE
                 }
                 return
             }
             compareFace(bitmapCurrent!!)
-
         }
 
         override fun onFailure(errorCode: Int) {
             //检测未完成，如相机异常CAMERA_ERROR,添加失败的处理逻辑。
-            showUserWrong("检测失败 errorCode = $errorCode", this@LoginActivity)
-            if (spinnerLoading.visibility == View.VISIBLE) {
-                spinnerLoading.visibility = View.GONE
+            "检测失败 errorCode = $errorCode".showToast()
+            thread {
+                while (true) {
+                    if (spinnerLoading.visibility == View.VISIBLE) {
+                        runOnUiThread {
+                            spinnerLoading.visibility = View.GONE
+                        }
+                        break
+                    }
+                }
             }
         }
     }
@@ -112,9 +118,10 @@ class LoginActivity : AppCompatActivity() {
                 val capture = MLLivenessCapture.getInstance()
                 capture.startDetect(this, liveFaceCallback)
                 thread {
-                    Thread.sleep(1000)
+                    Thread.sleep(100)
                     runOnUiThread {
-                        spinnerLoading.visibility = View.VISIBLE
+                        if (spinnerLoading.visibility == View.GONE)
+                            spinnerLoading.visibility = View.VISIBLE
                     }
                 }
             } else {
@@ -160,7 +167,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun postLogin() {
         Log.d(TAG, "postLogin: ")
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.postLogin(LoginBody(username, password))
         task.enqueue(object : Callback<LoginResult>{
             override fun onResponse(call: Call<LoginResult>,
@@ -184,12 +191,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setFocus() {
-        usernameLayout.editText?.setOnFocusChangeListener { v, hasFocus ->
-            usernameLayout.error = ""
-        }
-        passwordLayout.editText?.setOnFocusChangeListener { v, hasFocus ->
-            passwordLayout.error = ""
-        }
+        usernameLayout.setFocus()
+        passwordLayout.setFocus()
     }
 
     private fun isNotEmpty() : Boolean {
@@ -215,7 +218,7 @@ class LoginActivity : AppCompatActivity() {
     private fun loginSuccess(user: User) {
         UserInformation.username = user.username
         UserInformation.password = user.password
-        UserInformation.ID = user.id
+        UserInformation.id = user.id
         UserInformation.sex = user.sex
         Log.d(TAG, "onResponse: ${user.sex}")
         UserInformation.isLogin = true
@@ -228,7 +231,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun compareFace(image :Bitmap) {
-        val appService= RetrofitManager.create<AppService>()
+        val appService= RetrofitManager.create<ApiService>()
         val task = appService.compareFace(CmpFaceBody(bitmap2Base64(compressImage(image))))
         task.enqueue(object : Callback<LoginResult> {
             override fun onResponse(call: Call<LoginResult>, response: Response<LoginResult>) {
@@ -238,7 +241,7 @@ class LoginActivity : AppCompatActivity() {
                         loginSuccess(this.user)
                     }
                     else {
-                        showUserWrong(errorMsg, this@LoginActivity)
+                        errorMsg.showToast()
                         Log.d(TAG, "onResponse: --> $errorMsg")
                     }
                     spinnerLoading.visibility = View.GONE

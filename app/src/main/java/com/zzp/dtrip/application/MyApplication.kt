@@ -1,10 +1,12 @@
-package com.zzp.ailamp.application
+package com.zzp.dtrip.application
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.Context
 
 class MyApplication : Application() {
     companion object {
+        @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
     }
 

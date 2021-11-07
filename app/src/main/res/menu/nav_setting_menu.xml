@@ -6,23 +6,46 @@
         <item
             android:id="@+id/action_personal_password"
             android:icon="@drawable/ic_vector_password"
-            android:title="修改密码" />
+            android:title="@string/string_change_password" />
+    </group>
+
+    <group
+        android:id="@+id/group4">
+        <item
+            android:id="@+id/action_personal_face"
+            android:icon="@drawable/ic_vector_face"
+            android:title="@string/string_init_face" />
+    </group>
+
+    <group
+        android:id="@+id/group5">
+        <item
+            android:id="@+id/action_personal_delete"
+            android:icon="@drawable/ic_vector_delete"
+            android:title="@string/string_delete_face" />
     </group>
 
     <group
         android:id="@+id/group2">
         <item
-            android:id="@+id/action_personal_home"
-            android:icon="@drawable/ic_vector_home"
-            android:title="居家模式" />
+            android:id="@+id/action_personal_about"
+            android:icon="@drawable/ic_vector_about"
+            android:title="@string/string_about_us" />
     </group>
 
     <group
         android:id="@+id/group3">
         <item
-            android:id="@+id/action_personal_about"
-            android:icon="@drawable/ic_vector_about"
-            android:title="关于我们" />
+        android:id="@+id/action_personal_home"
+        android:icon="@drawable/ic_vector_home"
+        android:title="@string/string_home_mode" />
+    </group>
+    <group
+        android:id="@+id/group6">
+        <item
+            android:id="@+id/action_exit_login"
+            android:icon="@drawable/ic_out"
+            android:title="@string/string_exit_login" />
     </group>
 
 </menu>

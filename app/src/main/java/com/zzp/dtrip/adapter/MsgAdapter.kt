@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.zzp.dtrip.R
+import com.zzp.dtrip.data.Friend
 
 class MsgAdapter ( private val msgList: List<String>) :
     RecyclerView.Adapter<MsgAdapter.ViewHolder>() {

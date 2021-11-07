@@ -7,9 +7,9 @@ import android.widget.Toast
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputLayout
 import com.zzp.dtrip.R
-import com.zzp.dtrip.body.PasswordBody
+import com.zzp.dtrip.data.PasswordBody
 import com.zzp.dtrip.data.NormalResult
-import com.zzp.dtrip.util.AppService
+import com.zzp.dtrip.util.ApiService
 import com.zzp.dtrip.util.RetrofitManager
 import com.zzp.dtrip.util.UserInformation
 import retrofit2.Call
@@ -66,7 +66,7 @@ class ReplaceActivity : AppCompatActivity() {
     }
 
     private fun postPassword() {
-        val appService = RetrofitManager.create<AppService>()
+        val appService = RetrofitManager.create<ApiService>()
         val task = appService.postPassword(
             PasswordBody(UserInformation.username,
                 UserInformation.password, newPassword)
