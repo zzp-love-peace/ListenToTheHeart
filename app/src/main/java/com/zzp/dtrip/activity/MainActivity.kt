@@ -2,29 +2,24 @@ package com.zzp.dtrip.activity
 
 
 import android.content.Intent
-
 import android.os.Bundle
-
 import android.view.Menu
 import android.view.MenuItem
-import android.view.TextureView
 import android.widget.TextView
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-
+import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.navigation.NavigationView
-
 import com.huawei.hms.mlsdk.common.MLApplication
-
 import com.zzp.dtrip.R
-
 import com.zzp.dtrip.fragment.ChatFragment
 import com.zzp.dtrip.fragment.FriendFragment
-import com.zzp.dtrip.util.*
+import com.zzp.dtrip.util.ActivityCollector
+import com.zzp.dtrip.util.UserInformation
+import com.zzp.dtrip.util.showToast
 
 
 class MainActivity : AppCompatActivity() {
@@ -56,6 +51,51 @@ class MainActivity : AppCompatActivity() {
         initToolbar()
         initBottomFragment()
         doNavigationView()
+
+//        try {
+//            val leftDraggerField: Field = drawerLayout.javaClass
+//                .getDeclaredField("mLeftDragger") //通过反射获得DrawerLayout类中mLeftDragger字段
+//            leftDraggerField.isAccessible = true //私有属性要允许修改
+//            val vdh =
+//                leftDraggerField[drawerLayout] as ViewDragHelper //获取ViewDragHelper的实例, 通过ViewDragHelper实例获取mEdgeSize字段
+//            val edgeSizeField =
+//                vdh.javaClass.getDeclaredField("mEdgeSize") //依旧是通过反射获取ViewDragHelper类中mEdgeSize字段, 这个字段控制边缘触发范围
+//            edgeSizeField.isAccessible = true //依然是私有属性要允许修改
+//            val edgeSize = edgeSizeField.getInt(vdh) //这里获得mEdgeSize真实值
+//            Log.d(TAG, "mEdgeSize: $edgeSize") //这里可以打印一下看看值是多少
+//
+//            //Start 获取手机屏幕宽度，单位px
+//            val point = Point()
+//            windowManager.defaultDisplay.getRealSize(point)
+//            //End 获取手机屏幕
+//            Log.d(TAG, "point: " + point.x) //依然可以打印一下看看值是多少
+//            edgeSizeField.setInt(
+//                vdh,
+//                edgeSize.coerceAtLeast(point.x))
+//            Log.d(TAG, edgeSizeField.getInt(vdh).toString())
+        //这里设置mEdgeSize的值！！！，Math.max函数取得是最大值，也可以自己指定想要触发的范围值，如: 500,注意单位是px
+            //写到这里已经实现了，但是你会发现，如果长按触发范围，侧边栏也会弹出来，而且速度不太同步，稳定
+
+//            //Start 解决长按会触发侧边栏
+//            //长按会触发侧边栏是DrawerLayout类的私有类ViewDragCallback中的mPeekRunnable实现导致，我们通过反射把它置空
+//            val leftCallbackField: Field = drawerLayout.javaClass
+//                .getDeclaredField("mLeftCallback") //通过反射拿到私有类ViewDragCallback字段
+//            leftCallbackField.isAccessible = true //私有字段设置允许修改
+//            val vdhCallback =
+//                leftCallbackField[drawerLayout] as ViewDragHelper.Callback //ViewDragCallback类是私有类，我们返回类型定义成他的父类
+//            val peekRunnableField =
+//                vdhCallback.javaClass.getDeclaredField("mPeekRunnable") //我们依然是通过反射拿到关键字段，mPeekRunnable
+//            peekRunnableField.isAccessible = true //不解释了
+//            //定义一个空的实现
+//            val nullRunnable = Runnable { }
+//            peekRunnableField[vdhCallback] = nullRunnable //给mPeekRunnable字段置空
+//            //End 解决长按触发侧边栏
+//        } catch (e: NoSuchFieldException) {
+//            e.printStackTrace()
+//        } catch (e: IllegalAccessException) {
+//            e.printStackTrace()
+//        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -79,6 +119,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initToolbar() {
+        toolbar.overflowIcon = ContextCompat.getDrawable(this, R.drawable.ic_add)
         setSupportActionBar(toolbar)
         supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
@@ -153,4 +194,13 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
         ActivityCollector.removeActivity(this)
     }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
+    }
+
 }

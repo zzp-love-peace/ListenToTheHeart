@@ -53,3 +53,8 @@
 -keep class com.huawei.hianalytics.**{*;}
 -keep class com.huawei.updatesdk.**{*;}
 -keep class com.huawei.hms.**{*;}
+
+##XDrawerLayout反射
+#-keepclasseswithmembernames class com.zzp.dtrip.view.XDrawerLayout{
+#    <fields>;
+#}
