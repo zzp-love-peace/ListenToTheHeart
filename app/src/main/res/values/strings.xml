@@ -45,4 +45,5 @@
     <string name="string_man">男</string>
     <string name="string_woman">女</string>
     <string name="string_register">注册</string>
+    <string name="string_send">发送</string>
 </resources>

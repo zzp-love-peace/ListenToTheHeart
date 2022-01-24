@@ -1,8 +1,12 @@
 package com.zzp.dtrip.activity
 
 
+import android.content.ComponentName
 import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
@@ -17,6 +21,7 @@ import com.huawei.hms.mlsdk.common.MLApplication
 import com.zzp.dtrip.R
 import com.zzp.dtrip.fragment.ChatFragment
 import com.zzp.dtrip.fragment.FriendFragment
+import com.zzp.dtrip.service.ChatService
 import com.zzp.dtrip.util.ActivityCollector
 import com.zzp.dtrip.util.UserInformation
 import com.zzp.dtrip.util.showToast
@@ -32,8 +37,25 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navView: NavigationView
     private lateinit var usernameText: TextView
 
+    private lateinit var binder: ChatService.ClientBinder
+    private lateinit var chatService: ChatService
+
     companion object {
         private const val TAG = "MainActivity"
+    }
+
+    private val serviceConnection = object : ServiceConnection {
+
+        override fun onServiceConnected(name: ComponentName, service: IBinder) {
+            Log.d(TAG, "服务与活动成功绑定")
+            binder = service as ChatService.ClientBinder
+            chatService = binder.getService()
+        }
+
+        override fun onServiceDisconnected(name: ComponentName) {
+            Log.d(TAG, "服务与活动成功断开")
+        }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -48,10 +70,24 @@ class MainActivity : AppCompatActivity() {
         MLApplication.getInstance().apiKey =
             "CgF6e3x9L8tbJ7yLqpxTYQQhmiVvF4tdvG5CEqxrxMnm5EHxq2uBjzork9ye1W6tllgzBiZPHx1NxDQlD+B5fy3J"
         findViewById()
+
+        startService()
+//        bindService()
+
         initToolbar()
         initBottomFragment()
         doNavigationView()
     }
+
+    private fun startService() {
+        val intent = Intent(this, ChatService::class.java)
+        startService(intent)
+    }
+
+//    private fun bindService() {
+//        val intent = Intent(this, ChatService::class.java)
+//        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)    // 绑定Service
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {

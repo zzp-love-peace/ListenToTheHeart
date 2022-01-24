@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.zzp.dtrip.R
 import com.zzp.dtrip.activity.NewFriendActivity
 import com.zzp.dtrip.adapter.FriendAdapter
-import com.zzp.dtrip.data.Friend
 import com.zzp.dtrip.data.FriendWithType
 import com.zzp.dtrip.data.IdBody
 import com.zzp.dtrip.data.Info

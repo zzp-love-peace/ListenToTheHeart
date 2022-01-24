@@ -40,6 +40,13 @@
         <activity
             android:name=".activity.AddFriendActivity"
             android:windowSoftInputMode="adjustPan" />
+        <service
+            android:name=".service.ChatService"
+            android:enabled="true"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ChatActivity"
+            android:exported="true" />
         <activity
             android:name=".activity.SettingsActivity"
             android:exported="true"
