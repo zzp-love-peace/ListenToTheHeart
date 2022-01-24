@@ -2,14 +2,17 @@ package com.zzp.dtrip.activity
 
 
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.os.Build
 import android.os.Bundle
 import android.os.IBinder
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -25,7 +28,6 @@ import com.zzp.dtrip.service.ChatService
 import com.zzp.dtrip.util.ActivityCollector
 import com.zzp.dtrip.util.UserInformation
 import com.zzp.dtrip.util.showToast
-import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {
@@ -64,6 +66,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -72,23 +75,34 @@ class MainActivity : AppCompatActivity() {
             "CgF6e3x9L8tbJ7yLqpxTYQQhmiVvF4tdvG5CEqxrxMnm5EHxq2uBjzork9ye1W6tllgzBiZPHx1NxDQlD+B5fy3J"
         findViewById()
 
+        //启动服务
         startService()
-//        bindService()
+        //绑定服务
+        bindService()
 
         initToolbar()
         initBottomFragment()
         doNavigationView()
     }
 
+    /**
+     * 启动服务(WebSocket客户端服务)
+     */
     private fun startService() {
         val intent = Intent(this, ChatService::class.java)
         startService(intent)
+        Log.d(TAG, "startService: 启动chatService")
     }
 
-//    private fun bindService() {
-//        val intent = Intent(this, ChatService::class.java)
-//        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)    // 绑定Service
-//    }
+    /**
+     * 绑定服务
+     */
+    private fun bindService() {
+        Log.d(TAG, "bindService: 开始绑定")
+        val intent = Intent(this, ChatService::class.java)
+        bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE)    // 绑定Service
+    }
+
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -184,6 +198,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        //解绑Service
+        unbindService(serviceConnection)
+        //停止Service
+        val intent = Intent(this, ChatService::class.java)
+        stopService(intent)
+
+        //移除本Activity
         ActivityCollector.removeActivity(this)
     }
 

@@ -1,5 +1,6 @@
 package com.zzp.dtrip.activity
 
+import android.annotation.SuppressLint
 import android.content.*
 import android.os.*
 import androidx.appcompat.app.AppCompatActivity
@@ -122,14 +123,14 @@ class ChatActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * 启动服务(WebSocket客户端服务)
-     */
-    private fun startChatService() {
-        val intent = Intent(this, ChatService::class.java)
-        startService(intent)
-        Log.d(TAG, "startChatService: 启动chatService")
-    }
+//    /**
+//     * 启动服务(WebSocket客户端服务)
+//     */
+//    private fun startChatService() {
+//        val intent = Intent(this, ChatService::class.java)
+//        startService(intent)
+//        Log.d(TAG, "startChatService: 启动chatService")
+//    }
 
     /**
      * 绑定服务
@@ -155,12 +156,13 @@ class ChatActivity : AppCompatActivity() {
         msgRecyclerView = findViewById(R.id.recycler_chat)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initView() {
         //监听输入框变化
         msgEdit.addTextChangedListener {
-            if (msgEdit.text.isNotEmpty()) {
-
-            }
+//            if (msgEdit.text.isNotEmpty()) {
+//
+//            }
         }
         msgEdit.setOnClickListener {
             thread {

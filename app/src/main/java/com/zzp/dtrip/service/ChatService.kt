@@ -9,16 +9,12 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC
-import com.google.gson.Gson
 import com.zzp.dtrip.R
 import com.zzp.dtrip.activity.ChatActivity
-import com.zzp.dtrip.data.ChatMsg
 import com.zzp.dtrip.util.UserInformation
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
 import java.net.URI
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 import kotlin.concurrent.thread
 
 class ChatService : Service() {
@@ -41,13 +37,11 @@ class ChatService : Service() {
         }
 
         override fun onMessage(message: String) {
-            println(1)
             Log.d("JWebSocketClient", "onMessage()")
 
             Log.d(TAG, "收到的消息: $message")
 //                val gson = Gson()
 //                val chatMessage = gson.fromJson(message, ChatMessage::class.java)
-
             val intent = Intent("com.tangt.learnheart.rezxceivemsg")
                 .putExtra("message", message)
             sendBroadcast(intent)
