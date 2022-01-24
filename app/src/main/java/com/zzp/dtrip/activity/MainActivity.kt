@@ -20,6 +20,7 @@ import com.zzp.dtrip.fragment.FriendFragment
 import com.zzp.dtrip.util.ActivityCollector
 import com.zzp.dtrip.util.UserInformation
 import com.zzp.dtrip.util.showToast
+import kotlin.concurrent.thread
 
 
 class MainActivity : AppCompatActivity() {

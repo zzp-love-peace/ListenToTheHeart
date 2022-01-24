@@ -45,4 +45,9 @@
     <string name="string_man">男</string>
     <string name="string_woman">女</string>
     <string name="string_register">注册</string>
+    <string name="string_replace_password">修改密码</string>
+    <string name="string_old_password">旧密码</string>
+    <string name="string_new_password">新密码</string>
+    <string name="string_new_password_again">确认新密码</string>
+    <string name="string_submit_change">提交修改</string>
 </resources>
