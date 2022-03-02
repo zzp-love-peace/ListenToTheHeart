@@ -9,8 +9,10 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationCompat.VISIBILITY_PUBLIC
+import com.google.gson.Gson
 import com.zzp.dtrip.R
 import com.zzp.dtrip.activity.ChatActivity
+import com.zzp.dtrip.data.ChatMsg
 import com.zzp.dtrip.util.UserInformation
 import org.java_websocket.client.WebSocketClient
 import org.java_websocket.handshake.ServerHandshake
@@ -36,6 +38,7 @@ class ChatService : Service() {
             Log.d("ChatService", "WebSocket连接成功")
         }
 
+        @RequiresApi(Build.VERSION_CODES.O)
         override fun onMessage(message: String) {
             Log.d("JWebSocketClient", "onMessage()")
 
@@ -44,6 +47,7 @@ class ChatService : Service() {
 //                val chatMessage = gson.fromJson(message, ChatMessage::class.java)
             val intent = Intent("com.tangt.learnheart.rezxceivemsg")
                 .putExtra("message", message)
+            intent.setPackage(packageName)
             sendBroadcast(intent)
 
             sendNotification(message)
@@ -84,8 +88,7 @@ class ChatService : Service() {
      * 初始化WebSocket连接
      */
     private fun initSocketClient() {
-//        val uri = URI.create("ws://10.161.94.45:8887/")
-        val uri = URI.create("ws://101.34.85.209:5250/webSocket/${UserInformation.id}")
+        val uri = URI.create("ws://101.34.85.209:5250/websocket/${UserInformation.id}")
         client = Client(uri)
         connect()
     }
@@ -139,6 +142,7 @@ class ChatService : Service() {
      *
      * @param content
      */
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("UnspecifiedImmutableFlag")
     private fun sendNotification(content: String) {
         val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -152,11 +156,13 @@ class ChatService : Service() {
         }
         val intent = Intent(this, ChatActivity::class.java)
         val pi = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        val gson = Gson()
+        val chatMessage = gson.fromJson(content, ChatMsg::class.java)
         val notification = NotificationCompat.Builder(this, "message")
             .setAutoCancel(true)
             .setSmallIcon(R.drawable.heart_listening)
-            .setContentTitle("服务器")
-            .setContentText(content)
+            .setContentTitle(chatMessage.fromUserId)
+            .setContentText(chatMessage.context)
             .setVisibility(VISIBILITY_PUBLIC)
             .setWhen(System.currentTimeMillis())
             // 向通知添加声音、闪灯和振动效果
