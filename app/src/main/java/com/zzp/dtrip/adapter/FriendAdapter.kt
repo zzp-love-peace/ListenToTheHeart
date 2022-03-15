@@ -35,6 +35,7 @@ class FriendAdapter(
     }
 
     inner class MyFriendViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         val headImage: CircleImageView = view.findViewById(R.id.friend_head_image)
         val friendUsername: TextView = view.findViewById(R.id.friend_username)
     }
@@ -95,6 +96,7 @@ class FriendAdapter(
                     activity.startActivity(intent, options.toBundle())
                 }
             }
+
             is AddFriendViewHolder -> {
                 holder.friendUsername.text = friend.username
                 holder.addButton.setOnClickListener {

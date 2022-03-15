@@ -49,7 +49,5 @@
     <string name="string_old_password">旧密码</string>
     <string name="string_new_password">新密码</string>
     <string name="string_new_password_again">确认新密码</string>
-
     <string name="string_send">发送</string>
-
 </resources>

@@ -5,4 +5,5 @@
     <dimen name="pie_chart_text1_size">26sp</dimen>
     <dimen name="pie_chart_text2_size">12dp</dimen>
     <dimen name="stroke_width">1dp</dimen>
+    <dimen name="item_corner_radius">10dp</dimen>
 </resources>

@@ -12,7 +12,6 @@ abstract class ChatDatabase : RoomDatabase() {
 
     companion object {
         private var instance: ChatDatabase? = null
-
         @Synchronized
         fun getDatabase(context: Context): ChatDatabase {
             instance?.let {

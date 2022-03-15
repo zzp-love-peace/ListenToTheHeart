@@ -13,4 +13,5 @@ data class Chat(var fromUserId: String, var toUserId: String, var chatList: List
     @PrimaryKey(autoGenerate = true)
     var id: Long = 0
 
+
 }

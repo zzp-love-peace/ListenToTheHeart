@@ -100,7 +100,6 @@ class ChatActivity : AppCompatActivity() {
 
         findViewById()
         initView()
-
         initChatDatabase()
     }
 

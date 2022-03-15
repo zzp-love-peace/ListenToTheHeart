@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_marginTop="?android:attr/actionBarSize"
-    tools:context=".fragment.FriendFragment">
+    tools:context=".fragment.FriendFragment"
+    >
 
     <FrameLayout
         android:id="@+id/new_friend_layout"
@@ -103,6 +104,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/my_friend_layout"
+        android:background="@color/recycler_background"
         />
 
     <TextView

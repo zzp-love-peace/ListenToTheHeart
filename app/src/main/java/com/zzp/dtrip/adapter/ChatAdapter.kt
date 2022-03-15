@@ -36,6 +36,7 @@ class ChatAdapter(private val context: Context, private val chatList: List<Frien
         holder.msgName.text = chatList[position].friendName
     }
 
+
     override fun getItemCount() = chatList.size
 
 }

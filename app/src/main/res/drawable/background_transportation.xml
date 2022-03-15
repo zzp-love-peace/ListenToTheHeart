@@ -6,10 +6,12 @@
             <solid android:color="?attr/colorControlActivated" />
         </shape>
     </item>
+
     <item>
         <shape android:shape="oval">
             <solid android:color="#EEEEEE" />
             <corners android:radius="4dp"/>
         </shape>
     </item>
+
 </ripple>

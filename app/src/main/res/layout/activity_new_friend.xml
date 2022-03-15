@@ -23,7 +23,7 @@
         android:id="@+id/swipe_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="3dp"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -34,6 +34,7 @@
             android:id="@+id/new_friend_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/recycler_background"
              />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
