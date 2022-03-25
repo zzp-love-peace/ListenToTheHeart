@@ -45,7 +45,7 @@ class ChatService : Service() {
             Log.d(TAG, "收到的消息: $message")
 //                val gson = Gson()
 //                val chatMessage = gson.fromJson(message, ChatMessage::class.java)
-            val intent = Intent("com.tangt.learnheart.rezxceivemsg")
+            val intent = Intent("com.tangt.learnheart.receivemsg")
                 .putExtra("message", message)
             intent.setPackage(packageName)
             sendBroadcast(intent)

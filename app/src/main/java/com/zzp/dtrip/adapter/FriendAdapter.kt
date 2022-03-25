@@ -88,7 +88,7 @@ class FriendAdapter(
                     intent.putExtra("username", friend.username)
                     intent.putExtra("sex", friend.sex)
                     intent.putExtra("id", friend.id)
-                        val options = ActivityOptions.makeSceneTransitionAnimation(
+                    val options = ActivityOptions.makeSceneTransitionAnimation(
                         activity,
                         UtilPair.create(holder.headImage, "friend_head_image"),
                         UtilPair.create(holder.friendUsername, "friend_username_text")
